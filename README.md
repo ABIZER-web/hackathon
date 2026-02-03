@@ -1,7 +1,3 @@
-To make your repository stand out to recruiters and hackathon judges, your `README.md` should be clear, technical, and easy to follow. This version is designed for a **Lost & Found** platform that is "plug-and-play," meaning anyone can clone it and link their own Firebase backend.
-
-### Full `README.md` File
-
 ```markdown
 # 📍 Community Lost & Found Board
 
