@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
-// Your verified Firebase configuration
+// Your verified Hackathon project configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBEwv5mdD6dkfkU7zH-f06bVo-qZJOt5Js",
   authDomain: "hackathon-98b63.firebaseapp.com",
@@ -13,9 +13,9 @@ const firebaseConfig = {
   measurementId: "G-JNWFK75XD3"
 };
 
-// Initialize Firebase
+// Initialize Firebase App
 const app = initializeApp(firebaseConfig);
 
-// Initialize and export services for your Auth and Data Architects
+// Export services to be used by other teammates
 export const auth = getAuth(app);
 export const db = getFirestore(app);
