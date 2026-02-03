@@ -2,7 +2,7 @@
 # 📍 Community Lost & Found Board
 
 A modern, high-performance digital board built for campus communities to report and claim lost items. This project features a real-time "Hacker" aesthetic UI, optimized for speed and community utility.
-
+Made this website in less than 1 hour 
 ---
 
 ## 🛠️ Tech Stack
