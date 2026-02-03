@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import { db } from "../firebase/config";
 import { collection, query, orderBy, onSnapshot, deleteDoc, doc } from "firebase/firestore";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { Search, X, Info, Clock, MapPin, User, MessageSquare } from "lucide-react";
+import { 
+  Search, X, Info, Clock, MapPin, User, 
+  MessageSquare, ImageIcon, LayoutDashboard, 
+  PackageSearch 
+} from "lucide-react";
 
 export default function Browse() {
   const [items, setItems] = useState([]);
@@ -11,6 +15,7 @@ export default function Browse() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedItem, setSelectedItem] = useState(null); 
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Real-time synchronization with Firestore
@@ -22,7 +27,6 @@ export default function Browse() {
     return unsubscribe;
   }, []);
 
-  // Filter logic: Checks both item type and search keywords
   const filteredItems = items.filter(item => {
     const matchesFilter = filter === "all" ? true : item.type === filter;
     const matchesSearch = item.itemName.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -31,7 +35,7 @@ export default function Browse() {
   });
 
   return (
-    <div className="min-h-screen bg-[#020817] p-8 text-white pt-24 selection:bg-cyan-500/30">
+    <div className="min-h-screen bg-[#020817] p-8 text-white pt-24 selection:bg-cyan-500/30 relative">
       <div className="max-w-7xl mx-auto">
         
         {/* Statistics Section */}
@@ -48,7 +52,7 @@ export default function Browse() {
             <input 
               type="text"
               placeholder="Search items or locations..."
-              className="w-full bg-slate-900/40 border border-slate-800 rounded-xl py-3 pl-12 pr-4 text-sm focus:outline-none focus:border-cyan-500/50 backdrop-blur-md transition-all shadow-inner"
+              className="w-full bg-slate-900/40 border border-slate-800 rounded-xl py-3.5 pl-12 pr-4 text-sm focus:outline-none focus:border-cyan-500/50 backdrop-blur-md transition-all shadow-inner"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -91,6 +95,21 @@ export default function Browse() {
             ))}
           </div>
         )}
+      </div>
+
+      {/* FLOATING CHAT LOGO */}
+      <div className="fixed bottom-8 right-8 z-50 group">
+        <Link 
+          to="/chat/all" 
+          className="w-16 h-16 bg-gradient-to-br from-cyan-600 to-blue-600 rounded-2xl flex items-center justify-center shadow-2xl shadow-cyan-900/40 hover:scale-110 active:scale-95 transition-all border border-white/10 relative"
+        >
+          <MessageSquare size={28} className="text-white" />
+          <span className="absolute top-0 right-0 w-4 h-4 bg-emerald-500 rounded-full border-2 border-[#020817] animate-pulse"></span>
+          
+          <span className="absolute right-full mr-4 px-3 py-1 bg-slate-800 text-white text-[10px] font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-slate-700 uppercase tracking-widest">
+            Open Chat List
+          </span>
+        </Link>
       </div>
 
       {/* QUICK VIEW MODAL */}
@@ -158,7 +177,7 @@ function ItemCard({ item, currentUser, onView }) {
   const isOwner = currentUser?.uid === item.reporterId;
 
   const handleClaimed = async (e) => {
-    e.stopPropagation(); // Prevents modal from opening when clicking delete
+    e.stopPropagation();
     if (window.confirm("Mark this item as resolved? This will remove it from the board.")) {
       await deleteDoc(doc(db, "foundItems", item.id));
     }
@@ -219,7 +238,6 @@ function ItemCard({ item, currentUser, onView }) {
   );
 }
 
-// Utility components
 function FilterBtn({ active, label, onClick }) {
   return (
     <button 
