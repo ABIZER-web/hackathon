@@ -1,32 +1,52 @@
-import { useEffect, useState } from "react";
-import { getItems, deleteItem } from "../firebase/firestore";
-import ItemCard from "../components/ItemCard";
+import { Link } from "react-router-dom";
 
 export default function Home() {
-  const [items, setItems] = useState([]);
-
-  const fetchData = async () => {
-    const data = await getItems();
-    setItems(data);
-  };
-
-  useEffect(() => { fetchData(); }, []);
-
-  const handleClaim = async (id) => {
-    await deleteItem(id);
-    setItems(items.filter(item => item.id !== id));
-  };
-
   return (
-    <div className="p-8 max-w-6xl mx-auto">
-      <h1 className="text-3xl font-extrabold mb-8 text-gray-800">Found Items Board</h1>
-      {items.length === 0 ? (
-        <p className="text-gray-500 italic">No items found yet. The campus is clean!</p>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {items.map(item => <ItemCard key={item.id} item={item} onClaim={handleClaim} />)}
+    <div className="bg-[#020817] text-white min-h-screen">
+      <section className="flex flex-col items-center justify-center pt-32 pb-20 px-4 text-center">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 text-xs font-medium mb-10 tracking-widest uppercase">
+          ✦ AI-Powered • Computer Vision • Instant Matching
         </div>
-      )}
+        
+        <h1 className="text-6xl md:text-8xl font-black mb-6 tracking-tighter">
+          Reunite With <br />
+          <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">
+            What Matters
+          </span>
+        </h1>
+        
+        <p className="text-slate-400 max-w-2xl mx-auto text-lg mb-12 leading-relaxed">
+          Advanced AI analyzes your photos and finds perfect matches in our database.
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-4 mb-16">
+          <Link to="/report-lost" className="bg-orange-600 hover:bg-orange-700 px-10 py-4 rounded-xl font-bold flex items-center gap-2 shadow-[0_0_20px_rgba(234,88,12,0.3)] transition-all">
+            🔍 Report Lost Item <span>→</span>
+          </Link>
+          <Link to="/browse" className="bg-gradient-to-r from-cyan-600 to-blue-500 px-10 py-4 rounded-xl font-bold flex items-center gap-2 shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all">
+            🌐 Browse All Items <span>→</span>
+          </Link>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-20 bg-slate-900/30 border-y border-slate-800/50 backdrop-blur-sm">
+        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+          <Stat text="10K+" sub="Items Reunited" />
+          <Stat text="95%" sub="Match Accuracy" />
+          <Stat text="5K+" sub="Active Users" />
+          <Stat text="24/7" sub="AI Monitoring" />
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function Stat({ text, sub }) {
+  return (
+    <div>
+      <h2 className="text-5xl font-extrabold text-cyan-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.3)]">{text}</h2>
+      <p className="text-slate-500 mt-2 font-medium">{sub}</p>
     </div>
   );
 }
