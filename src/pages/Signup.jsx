@@ -31,7 +31,7 @@ export default function Signup() {
         isOnline: true
       });
 
-      navigate("/");
+      navigate("/browse");
     } catch (err) {
       console.error(err);
       alert("Signup Error: " + err.message);

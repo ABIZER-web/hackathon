@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { db } from "../firebase/config";
 import { useAuth } from "../context/AuthContext";
 import { 

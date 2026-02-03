@@ -5,7 +5,7 @@ import { AuthProvider, useAuth } from "./context/AuthContext";
 import Home from "./pages/Home";
 import Browse from "./pages/Browse";
 import Login from "./pages/Login";
-import Signup from "./pages/Signup";
+import Signup from "./pages/SignUp";
 import ReportItem from "./pages/ReportItem";
 import ChatPage from "./pages/ChatPage";
 
