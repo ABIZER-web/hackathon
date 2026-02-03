@@ -1,8 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage"; // 1. Add this import
 
-// Your verified Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBEwv5mdD6dkfkU7zH-f06bVo-qZJOt5Js",
   authDomain: "hackathon-98b63.firebaseapp.com",
@@ -13,9 +13,8 @@ const firebaseConfig = {
   measurementId: "G-JNWFK75XD3"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Initialize and export services for your Auth and Data Architects
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+export const storage = getStorage(app); // 2. Add this export
